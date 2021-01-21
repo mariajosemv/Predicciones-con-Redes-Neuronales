@@ -27,15 +27,15 @@ El algoritmo de una red neuronal funciona de acuerdo los siguientes pasos:
 
 Los rangos de los pesos de inicialización que han demostrado ser más efectivos y que son utilizados en este proyecto, están definidos de acuerdo a las variaciones de Glorot/Xavier: 
 
-- Intervalo Uniforme $[-x,x]$:
+- Intervalo Uniforme [-x,x]:
 
-$$ x = \sqrt{  \frac{6}{E + S} } $$
+    ![equation](https://latex.codecogs.com/gif.latex?x%20%3D%20%5Csqrt%7B%20%5Cfrac%7B6%7D%7BE%20&plus;%20S%7D%20%7D)
 
-- Intervalo Normal: con Media 0 y $\sigma$:
+- Intervalo Normal: con Media 0 y σ:
 
-$$ \sigma = \sqrt{  \frac{2}{E + S} } $$
+    ![equation](https://latex.codecogs.com/gif.latex?%5Csigma%20%3D%20%5Csqrt%7B%20%5Cfrac%7B2%7D%7BE%20&plus;%20S%7D%20%7D)
 
-donde $E$ y $S$ son la cantidad de entradas y salidas. 
+donde E y S son la cantidad de entradas y salidas. 
 
 ### 🔻 Funciones de activación
 
@@ -43,41 +43,43 @@ Algunas de las funciones más utilizadas son:
 
 - Función Sigmoid o Logística: Es utilizada especialmente para los modelos en los que tenemos que predecir la probabilidad como un resultado ya que tiene una salida multivalor acotada de (0,1). 
 
-$$ f(x) = \frac{1}{1+e^x}$$ 
+    ![equation](https://latex.codecogs.com/gif.latex?f%28x%29%20%3D%20%5Cfrac%7B1%7D%7B1&plus;e%5E%7B-x%7D%7D)
 
 - Función Tangente Hiperbólica: es usualmente usada en problemas de clasificación binaria, con una salida acotada entre (-1,1).
 
-$$ f(x) = \frac{2}{1+e^{2x}} - 1 $$
+    ![equation](https://latex.codecogs.com/gif.latex?f%28x%29%20%3D%20%5Cfrac%7Be%5Ex%20-%20e%5E%7B-x%7D%7D%7Be%5Ex%20&plus;%20e%5E%7B-x%7D%7D)
+
 
 - ReLU (Rectified Linear Unit): tiene salida no acotada (0,∞) y derivadas positivas, por lo que es importante considerar las variables de entrada normalizadas (de 0 a 1). Es usada en problemas de regresión en los que se entrega una número final. 
-
-$$  f(x) =  \begin{cases} 0 & \text{if } x < 0, x & \text{if } x > 0 \end{cases} \} $$
+    
+    ![equation](https://latex.codecogs.com/gif.latex?f%28x%29%20%3D%20%5Ctext%7Bmax%7D%20%5C%7B%200%2Cx%20%5C%7D)
 
 
 ### 🔻 Funciones de costo
 
 - Para variables numéricas: 
 
-    - Mean Absolute Error: de fácil interpretación y robusta a outliers. 
-
-    $$ MAE = \frac{1}{k} \sum_i^k |Real - Predicho| $$
+    - Mean Absolute Error: es de fácil interpretación y robusta a outliers. 
+    
+        ![equation](https://latex.codecogs.com/gif.latex?MAE%20%3D%20%5Cfrac%7B1%7D%7Bk%7D%20%5Csum_i%5Ek%20%7CReal%20-%20Predicho%7C)
 
     - Mean Squared Error: penaliza el modelo cuando existen grandes errores y es sensible a outliers.
-
-    $$ MSE = \frac{1}{k} \sum_i^k (Real - Predicho)^2 $$
+    
+        ![equation](https://latex.codecogs.com/gif.latex?MSE%20%3D%20%5Cfrac%7B1%7D%7Bk%7D%20%5Csum_i%5Ek%20%28Real%20-%20Predicho%29%5E2)
 
     - Mean Absolute Percentage Error: penaliza el modelo cuando existen grandes errores y es robusta a outliers. 
-     $$ MAPE = \frac{1}{k} \sum_i^k | \frac{Real - Predicho}{Real}| $$
+        
+        ![equation](https://latex.codecogs.com/gif.latex?MAPE%20%3D%20%5Cfrac%7B1%7D%7Bk%7D%20%5Csum_i%5Ek%20%7C%20%5Cfrac%7BReal%20-%20Predicho%7D%7BReal%7D%7C)
 
 - Para variables categóricas:
 
-  - Binary Cross-Entropy: Penaliza el modelo cuando existen grandes errores. En la siguiente ecuación, $y_i'$ es el valor predicho y $y_i$ el valor real. 
-
-  $$ H_{y'}(y) := - \sum_{i} ({y_i' \log(y_i) + (1-y_i') \log (1-y_i)}) $$ 
-
-  - Categorical Cross-Entropy: Usada en problemas multiclase, de igual manera penaliza el modelo cuando presenta grandes errores. En la siguiente ecuación $p(x)$ es el valor real, y $q(x)$ el valor predicho. 
-
-  $$ H(p,q) = -\sum_{\forall x} p(x) \log(q(x)) $$
+  - Binary Cross-Entropy: Penaliza el modelo cuando existen grandes errores. En la siguiente ecuación, ![equation](https://latex.codecogs.com/gif.latex?y%27_%7Bi%7D) es el valor predicho y ![equation](https://latex.codecogs.com/gif.latex?y_%7Bi%7D) es el valor real.
+  
+    ![equation](https://latex.codecogs.com/gif.latex?H_%7By%27%7D%28y%29%20%3A%3D%20-%20%5Csum_%7Bi%7D%20%28%7By_i%27%20%5Clog%28y_i%29%20&plus;%20%281-y_i%27%29%20%5Clog%20%281-y_i%29%7D%29)
+  
+  - Categorical Cross-Entropy: Usada en problemas multiclase, de igual manera penaliza el modelo cuando presenta grandes errores. En la siguiente ecuación p(x) es el valor real, y q(x) el valor predicho. 
+  
+    ![equation](https://latex.codecogs.com/gif.latex?H%28p%2Cq%29%20%3D%20-%5Csum_%7B%5Cforall%20x%7D%20p%28x%29%20%5Clog%28q%28x%29%29)
 
 ### 🔻 Algoritmos de optimización
 
@@ -105,18 +107,28 @@ El algorimo aplicado en cada red neuronal representa un modelo de los datos, par
 
 - Para problemas de clasifiación: en estos casos el modelo arroja un resultado Positivo o Negativo, que luego será evaluado como Verdadero o Falso dependiendo de si la predicción sea correcta o no. Los posibles resultados de un problema de clasificación se etiquetan como: 
 
-  - $VP$: verdaderos positivos, 
-  - $VN$: verdaderos negativos, 
-  - $FP$: falsos positivos,
-
-  - $FN$: falsos negativos,
+  - *VP*: verdaderos positivos, 
+  - *VN*: verdaderos negativos, 
+  - *FP*: falsos positivos,
+  - *FN*: falsos negativos,
 
   A partir de este conteo se definen las siguientes métricas: 
 
-  - Accuracy: $$ \frac{VP+VN}{VP+VN+FP+FN} $$
-  - Precision: $$ \frac{VP}{VP+FP} $$
-  - Recall (o sensibilidad): $$ \frac{VP}{VP+FN} $$
-  - F1-score: $$ \frac{ 2  \cdot (Recall \cdot Precision)}{(Recall + Precision)}$$
+  - Accuracy: 
+  
+    ![equation](https://latex.codecogs.com/gif.latex?%5Cfrac%7BVP&plus;VN%7D%7BVP&plus;VN&plus;FP&plus;FN%7D)
+    
+  - Precision: 
+  
+    ![equation](https://latex.codecogs.com/gif.latex?%5Cfrac%7BVP%7D%7BVP&plus;FP%7D)
+    
+  - Recall (o sensibilidad): 
+  
+    ![equation](https://latex.codecogs.com/gif.latex?%5Cfrac%7BVP%7D%7BVP&plus;FN%7D)
+    
+  - F1-score: 
+  
+    ![equation](https://latex.codecogs.com/gif.latex?%5Cfrac%7B%202%20%5Ccdot%20%28Recall%20%5Ccdot%20Precision%29%7D%7B%28Recall%20&plus;%20Precision%29%7D)
 
   Las métricas de desempeño en las clasificaciones se escogen dependiendo del contexto del problema a resolver.
 
@@ -124,11 +136,11 @@ El algorimo aplicado en cada red neuronal representa un modelo de los datos, par
 
 A partir de las métricas descritas anteriormente, se construyen las curvas de aprendizaje. En ellas podemos evaluar si el algoritmo logró generalizar los datos, o por el contrario, necesita añadirle complejidad o reducirla. Estas características son apreciadas al graficar la métrica escogida en función del número de iteraciones (o épocas), donde podemos encontrarnos con los siguientes escenarios: 
 
-- Underfitting (o sub ajuste): cuando el modelo es incapaz de obtener resultados correctos por falta de entrenamiento o de más muestras. Se reconoce visualmente cuando existe altos valores de pérdida en el set de entrenamiento y validación. 
+- Underfitting (o sub ajuste): cuando el modelo es incapaz de obtener resultados correctos por falta de entrenamiento o de más muestras. Se reconoce visualmente cuando existe altos valores de pérdida tanto en el set de entrenamiento como en el de validación. 
 
-- Overfitting (o sobre ajuste): cuando el modelo se ajusta solo a los datos de entrenamiento y se vuelve incapaz de reconocer nuevos datos. Es visualmente reconocido cuando existe una separación importante entre las pérdidas del set de entrenamiento y de validación. 
+- Overfitting (o sobre ajuste): cuando el modelo se ajusta solo a los datos de entrenamiento y se vuelve incapaz de reconocer nuevos datos. Es visualmente reconocido cuando existe una separación importante entre las pérdidas del set de entrenamiento y el set de validación. 
 
-- Optimal fit: cuando el modelo logra captar el comportamiento general de los datos. Se puede identificar al obtener valores de pérdidas similares en los datos de entrenamiento y validación. 
+- Optimal fit: cuando el modelo logra captar el comportamiento general de los datos. Se puede identificar al obtener valores de pérdidas en los datos de validación que no difieren demasiado de las pérdidas de los datos de entrenamiento. 
 
 <p align="center">
   <img width="700" src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff80030c0-6072-4d13-a6d7-e148f6c5c39a%2FUntitled.png?table=block&id=4c389bbb-7692-43aa-b4e8-016b1a14d03b&width=2050&userId=5d54f20c-b387-4e7e-b2a5-d88e235ada88&cache=v2">
